@@ -1,18 +1,31 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
-# seeds.rb
+puts "Seeding...."
 
-restaurant1 = Restaurant.create(name: "Sottocasa NYC", address: "298 Atlantic Ave, Brooklyn, NY 11201")
-restaurant2 = Restaurant.create(name: "PizzArte", address: "69 W 55th St, New York, NY 10019")
+require 'faker'
 
-pizza1 = Pizza.create(name: "Cheese", ingredients: "Dough, Tomato Sauce, Cheese")
-pizza2 = Pizza.create(name: "Pepperoni", ingredients: "Dough, Tomato Sauce, Cheese, Pepperoni")
+# Create restaurants
+10.times do
+  Restaurant.create(
+    name: Faker::Restaurant.name,
+    address: Faker::Address.full_address
+  )
+end
 
-RestaurantPizza.create(price: 10, restaurant: restaurant1, pizza: pizza1)
-RestaurantPizza.create(price: 12, restaurant: restaurant1, pizza: pizza2)
-RestaurantPizza.create(price: 15, restaurant: restaurant2, pizza: pizza1)
+# Create pizzas
+10.times do
+  Pizza.create(
+    name: Faker::Food.dish,
+    ingredients: Faker::Food.ingredients
+  )
+end
+
+# Create restaurant pizzas
+20.times do
+  RestaurantPizza.create(
+    restaurant: Restaurant.all.sample,
+    pizza: Pizza.all.sample,
+    price: rand(1.0..30.0).round(2)
+  )
+end
+
+
+puts "Seeding Done!"
