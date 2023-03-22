@@ -1,6 +1,8 @@
+require 'faker'
+
 puts "Seeding...."
 
-require 'faker'
+
 
 # Create restaurants
 10.times do
@@ -28,4 +30,4 @@ end
 end
 
 
-puts "Seeding Done!"
+puts "Seeding Done!"#a
